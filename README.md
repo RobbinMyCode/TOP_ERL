@@ -44,7 +44,7 @@ Episodic RL often uses the movement primitves (MPs) as a paramterized trajectory
 </p>
 
 ## Use Transformer as an Action Sequence Critic
-In the literature, most of the combinations of RL and Transformers focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. In TOP-ERL, we utilize Transformers as an action sequence value predictor, training it via the N-step future returns. To ensure stable critic learning, we adapt the trajectory segmentation strategy in [9] by splitting the long trajectory into sub-sequences of varying lengths.
+In the literature, most of the combinations of RL and Transformers focus on offline, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. In TOP-ERL, we utilize Transformers as an action sequence value predictor, training it via the N-step future returns. To ensure stable critic learning, we adapt the trajectory segmentation strategy in [9] by splitting the long trajectory into sub-sequences of varying lengths.
 
 <p align="center">
   <img src='./web_assets/critic_animation_gif.gif' width="900" /><br>
