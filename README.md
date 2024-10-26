@@ -1,4 +1,4 @@
-# Transformer-based Off-policy Episodic Reinforcement Learning (TOP-ERL)
+# Transformer-based Off-policy Episodic RL (TOP-ERL)
 ### Under review in ICLR25
 
 <p align="center">
@@ -37,12 +37,14 @@ Episodic RL often uses the movement primitves (MPs) as a paramterized trajectory
 </p>
 
 ## Use Transformer as an Action Sequence Critic
-In the literature, most of the combinations of RL and Transformer focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. TOP-ERL utilizes Transformers as an action sequence value predictor, training it via the N-step future return. To do so, we adapt the trajectory segmentation strategy in [9] for stable critic learning.
+In the literature, most of the combinations of RL and Transformer focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. In TOP-ERL, we utilize Transformers as an action sequence value predictor, training it via the N-step future returns. To ensure stable critic learning, we adapt the trajectory segmentation strategy in [9] by splitting the long trajectory into sub-sequences of varying lengths.
 
 <p align="center">
-  <img src='./web_assets/mp_demo.gif' width="600" /><br>
-  <em>MP generates a trajectory (upper curve) by manipulating the basis functions (lower curves)</em>
+  <img src='./web_assets/critic_animation_gif.gif' width="900" /><br>
+  <em>TOP-ERL utilizes a transformer critic that predicts the value of executing a sub-sequence of actions from the beginning of the segment state. </em>
 </p>
+
+
 
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
