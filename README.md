@@ -40,7 +40,7 @@ Episodic RL often uses the movement primitves (MPs) as a paramterized trajectory
 
 <p align="center">
   <img src='./web_assets/mp_demo.gif' width="600" /><br>
-  <em>MP generates a trajectory (upper curve) by manipulating the basis functions (lower curves)</em>
+  <em>MP predicts a trajectory (upper curve) by adjusting the weights of the basis functions (lower curves)</em>
 </p>
 
 ## Use Transformer as an Action Sequence Critic
