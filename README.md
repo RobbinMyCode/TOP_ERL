@@ -6,6 +6,13 @@
   <img src='./web_assets/Box_Pushing.gif' width="200" />
   <img src='./web_assets/rollout.png' width="243" />
 </p>
+
+<br>
+
+<p align="center">
+  <img src='./web_assets/results.png' width="650" />
+</p>
+
 <br><br>
 
 ## Episodic RL, What and Why?
@@ -33,11 +40,11 @@ Episodic RL often uses the movement primitves (MPs) as a paramterized trajectory
 
 <p align="center">
   <img src='./web_assets/mp_demo.gif' width="600" /><br>
-  <em>MP generates a trajectory (upper curve) by manipulating the basis functions (lower curves)</em>
+  <em>MP predicts a trajectory (upper curve) by adjusting the weights of the basis functions (lower curves)</em>
 </p>
 
 ## Use Transformer as an Action Sequence Critic
-In the literature, most of the combinations of RL and Transformer focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. In TOP-ERL, we utilize Transformers as an action sequence value predictor, training it via the N-step future returns. To ensure stable critic learning, we adapt the trajectory segmentation strategy in [9] by splitting the long trajectory into sub-sequences of varying lengths.
+In the literature, most of the combinations of RL and Transformers focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. In TOP-ERL, we utilize Transformers as an action sequence value predictor, training it via the N-step future returns. To ensure stable critic learning, we adapt the trajectory segmentation strategy in [9] by splitting the long trajectory into sub-sequences of varying lengths.
 
 <p align="center">
   <img src='./web_assets/critic_animation_gif.gif' width="900" /><br>
@@ -45,7 +52,7 @@ In the literature, most of the combinations of RL and Transformer focus on off-p
 </p>
 
 
-
+<br><br>
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
 
