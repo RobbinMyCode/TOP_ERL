@@ -1,4 +1,4 @@
-## Transformer-based Off-policy Episodic Reinforcement Learning (TOP-ERL)
+# Transformer-based Off-policy Episodic Reinforcement Learning (TOP-ERL)
 ### Under review in ICLR25
 
 <p align="center">
@@ -8,7 +8,7 @@
 </p>
 <br><br>
 
-### Episodic RL, What and Why?
+## Episodic RL, What and Why?
 Episodic Reinforcement Learning (ERL) [1, 4, 5] is a distinct RL family that emphasizes the maximization of returns over entire episodes, typically lasting several seconds, rather than optimizing the intermediate states during environment interactions. Unlike Step-based RL (SRL) [2, 3], ERL shifts the solution search from per-step actions to a parameterized trajectory space, leveraging techniques like Movement Primitives (MPs) [6, 7, 8] for generating action sequences. This approach enables a broader exploration horizon [4], captures trajectory statistics [9], and ensures smooth transitions between re-planning phases [10].
 
 <p align="center">Exploration Strategies Comparison, SRL vs. ERL [9]</p>
@@ -28,14 +28,21 @@ Episodic Reinforcement Learning (ERL) [1, 4, 5] is a distinct RL family that emp
 
 
 
-### Use Movement Primitives for Trajectory Generation
+## Use Movement Primitives for Trajectory Generation
 Episodic RL often uses the movement primitves (MPs) as a paramterized trajectory generator. In TOP-ERL, we use the ProDMP [8] for fast computation and better initial condition enforcement. A simple illustration of using MPs can be seen as follows:
 
 <p align="center">
-  <img src='./web_assets/your_animation.gif' width="800" /><br>
-  <em>MPs generate a trajectory (upper) by manipulating the basis functions (lower)</em>
+  <img src='./web_assets/mp_demo.gif' width="600" /><br>
+  <em>MP generates a trajectory (upper curve) by manipulating the basis functions (lower curves)</em>
 </p>
 
+## Use Transformer as an Action Sequence Critic
+In the literature, most of the combinations of RL and Transformer focus on off-policy, model-based and POMDP settings. Directly using tranformer in online RL for acition sequence value prediction remains highly unexplored. TOP-ERL utilizes Transformers as an action sequence value predictor, training it via the N-step future return. To do so, we adapt the trajectory segmentation strategy in [9] for stable critic learning.
+
+<p align="center">
+  <img src='./web_assets/mp_demo.gif' width="600" /><br>
+  <em>MP generates a trajectory (upper curve) by manipulating the basis functions (lower curves)</em>
+</p>
 
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
