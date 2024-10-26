@@ -6,6 +6,13 @@
   <img src='./web_assets/Box_Pushing.gif' width="200" />
   <img src='./web_assets/rollout.png' width="243" />
 </p>
+
+<br><br>
+
+<p align="center">
+  <img src='./web_assets/results.png' width="643" />
+</p>
+
 <br><br>
 
 ## Episodic RL, What and Why?
@@ -45,7 +52,7 @@ In the literature, most of the combinations of RL and Transformer focus on off-p
 </p>
 
 
-
+<br><br>
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
 
