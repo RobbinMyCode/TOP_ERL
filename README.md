@@ -7,10 +7,10 @@
   <img src='./web_assets/rollout.png' width="243" />
 </p>
 
-<br><br>
+<br>
 
 <p align="center">
-  <img src='./web_assets/results.png' width="643" />
+  <img src='./web_assets/results.png' width="650" />
 </p>
 
 <br><br>
