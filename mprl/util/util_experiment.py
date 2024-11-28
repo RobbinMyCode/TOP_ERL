@@ -85,23 +85,6 @@ class RLExperiment:
                  epoch: int = None,
                  keep_training: bool = False):
 
-        git_tracker = util.get_git_tracker()
-
-        # Determine if check git status
-        if util.is_debugging():
-            util.print_line_title('Debug mode, do not check git repo commits.')
-            # Use TkAgg backend for matplotlib to avoid error against mujoco_py
-            import matplotlib
-            matplotlib.use('TkAgg')
-        else:
-            util.print_line_title('Run mode, enforce git repo commit checking.')
-            git_clean, git_status = git_tracker.check_clean_git_status(
-                print_result=True)
-            if not git_clean:
-                assert False, "Repositories not clean"
-
-        self.current_git_commits = git_tracker.get_git_repo_commits()
-
         if train:
             # Initialize experiment
             self.cw = cluster_work.ClusterWork(exp)
@@ -115,13 +98,6 @@ class RLExperiment:
             download_dir, path_to_old_config \
                 = download_saved_model(model_str, version_number)
             sys.argv.extend([path_to_old_config, "-o", "--nocodecopy"])
-
-            # Compare the current and the old commits
-            self.old_git_commits = \
-                util.parse_config(path_to_old_config)[0]["git_repos"]
-            util.print_wrap_title("Git repos commits check")
-            print(util.git_repos_old_vs_new(self.old_git_commits,
-                                            self.current_git_commits))
 
             # Initialize experiment
             self.cw = cluster_work.ClusterWork(exp)
@@ -198,9 +174,6 @@ class RLExperiment:
             # Set random seed to the repetition number
             util.set_value_in_nest_dict(rep_config, "seed",
                                         rep_config['_rep_idx'])
-
-            # Save repo commits
-            rep_config["git_repos"] = self.current_git_commits
 
             # Make a hard copy of the config
             copied_rep_config = copy.deepcopy(rep_config)
