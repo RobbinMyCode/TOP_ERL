@@ -10,7 +10,7 @@
 <br>
 
 <p align="center">
-  <img src='./web_assets/results.png' width="650" />
+  <img src='./web_assets/results_new.png' width="650" />
 </p>
 
 <br><br>
