@@ -52,6 +52,48 @@ In the literature, most of the combinations of RL and Transformers focus on offl
 </p>
 
 
+## Installation Tutorial
+We provide a 12 min long [tutorial video](https://www.youtube.com/watch?v=y-d1E0qkZFM) to guide your installation step-by-step. This video contains the following steps:
+
+1. Install [Mamba](https://github.com/conda-forge/miniforge/releases) (a faster conda release)	
+
+2. Activate mamba in your teminal
+```
+	source .bashrc  #if you use bash
+```
+
+3. Clone the repository
+```
+	mkdir top_erl
+	cd top_erl
+	git clone git@github.com:toperliclr2025/TOP_ERL.git
+```
+4. Install dependencies
+```
+    cd TOP_ERL
+    bash conda_env.sh	
+```
+Wait for 10 min until finish (depend on the internet speed)
+
+5. Activate the mamba(conda) env by:
+```
+  mamba activate top_erl_iclr25
+```
+
+6. Register a [wandb](https://wandb.ai/) account and login in your local PC:
+```
+  wandb login --relogin
+```
+
+7. Replace the wandb username in the config file, such as "shared_dense.yaml".
+
+8. Run experiment locally, e.g. box pushing dense reward setting
+```
+  python seq_mp_exp_multiprocessing.py config/box_push_random_init/seq/entire/local.yaml -o --nocodecopy
+```
+
+9. To run experiments in slurm-based HPC, you need to adapt your hpc info in our hpc configs. 
+
 <br><br>
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
