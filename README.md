@@ -53,6 +53,14 @@ In the literature, most of the combinations of RL and Transformers focus on offl
 
 
 ## Installation Tutorial
+0. We tested our installation using the following PC setup:
+```
+	- Ubuntu 22.04
+	- RTX 2060 Super GPU
+	- git is installed with "sudo apt install git-all"
+	- Github account with ssh access
+```
+
 We provide a 12 min long [tutorial video](https://www.youtube.com/watch?v=y-d1E0qkZFM) to guide your installation step-by-step. This video contains the following steps:
 
 1. Install [Mamba](https://github.com/conda-forge/miniforge/releases) (a faster conda release)	
