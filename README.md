@@ -102,6 +102,8 @@ Wait for 10 min until finish (depend on the internet speed)
 
 9. To run experiments in slurm-based HPC, you need to adapt your hpc info in our hpc configs. 
 
+10. We used [cw2](https://pypi.org/project/cw2/) to parse our experiment configs into sbatch commands in slurm based HPC system. For more technical details, we refer the documents in cw2.
+
 <br><br>
 ### References
 [1] Darrell Whitley, Stephen Dominic, Rajarshi Das, and Charles W Anderson. Genetic reinforcement learning for neurocontrol problems. Machine Learning, 13:259–284, 1993.
