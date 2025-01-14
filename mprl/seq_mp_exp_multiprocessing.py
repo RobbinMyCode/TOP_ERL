@@ -29,12 +29,28 @@ def sampler_task(cfg, cpu_cores, conn: multiprocessing.connection.Connection):
     state_dim = MPExperimentMultiProcessing.get_dim_in(cfg, sampler)
     policy_out_dim = MPExperimentMultiProcessing.dim_policy_out(cfg)
 
+    cfg_copy = copy.deepcopy(cfg) #contextual gets deleted somehow
+
     inference_policy = policy_factory(
         cfg["policy"]["type"],
         dim_in=state_dim,
         dim_out=policy_out_dim,
         **cfg["policy"]["args"]
     )
+
+    n_corrections = len(cfg_copy["sampler"]["args"].get("correction_steps", []))
+    #if n_corrections >= 1:
+    secondary_training = n_corrections >= 1
+    secondary_steps = cfg_copy["sampler"]["args"]["correction_steps"] if secondary_training else None
+    secondary_policies = len(secondary_steps) * [
+        policy_factory(
+            cfg_copy["policy"]["type"],
+            dim_in=state_dim,
+            dim_out=policy_out_dim,
+            **cfg_copy["policy"]["args"]
+        )
+    ] if secondary_training else None
+
 
     # NOTE: run the sampler and send the data to the main process
     # NOTE: It is while True so I am not sure if it is proper to use it
@@ -48,14 +64,16 @@ def sampler_task(cfg, cpu_cores, conn: multiprocessing.connection.Connection):
         # TODO: ALLOW SKIP THE PARAMETERS COPY USING THE RECIEVED DATA
         inference_policy.copy_parameter(policy_params)
         dataset, num_env_interation = sampler.run(
-            training=True, policy=inference_policy, critic=None)
+            training=True, policy=inference_policy, critic=None, secondary_training=secondary_training,
+            secondary_policies=secondary_policies, secondary_steps=secondary_steps)
         # Send the data to the main process
         conn.send((dataset, num_env_interation))
 
 class MPExperimentMultiProcessing(experiment.AbstractIterativeExperiment):
     def initialize(self, cw_config: dict, rep: int,
                    logger: cw_logging.LoggerArray) -> None:
-
+        #print("cw_config:", cw_config)
+        #exit("main_74")
         # Get experiment config
         cfg = cw_config["params"]
         cpu_cores = cw_config.get("cpu_cores", None)
@@ -197,6 +215,8 @@ class MPExperimentMultiProcessing(experiment.AbstractIterativeExperiment):
             # print(f"Speed: {result_metrics['exp_speed']:.2f} s/iter")
 
             self.progress_bar.update(1)
+            #(result_metrics)
+            #exit("main201")
             if self.verbose_level == 0:
                 return {}
             elif self.verbose_level == 1:
@@ -311,8 +331,9 @@ class MPExperimentMultiProcessing(experiment.AbstractIterativeExperiment):
         # Time in seconds per iteration
         return (current_time - self.exp_start_time) / (n + 1)
 
+
 def evaluation(model_str: str, version_number: list, epoch: int,
-               keep_training: bool):
+               keep_training: bool, experiment=MPExperimentMultiProcessing):
     """
     Given wandb model string, version, and epoch number, evaluate the model
     Args:
@@ -325,8 +346,9 @@ def evaluation(model_str: str, version_number: list, epoch: int,
         None
     """
     for v_num in version_number:
-        util.RLExperiment(MPExperimentMultiProcessing, False, model_str, v_num, epoch,
+        util.RLExperiment(experiment, False, model_str, v_num, epoch,
                           keep_training)
+
 
 
 if __name__ == "__main__":

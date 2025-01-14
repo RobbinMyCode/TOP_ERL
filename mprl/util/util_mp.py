@@ -135,6 +135,8 @@ def make_env(env_id: str, seed: int, rank: int, render: bool,
     """
     def _get_env():
         util.set_logger_level("ERROR")
+        kwargs["episode_max_steps"] = kwargs.get("max_episode_steps", None)
+
         env = gym.make(id=env_id, render_mode="human" if render else None,
                        **kwargs)
         env.reset(seed=seed + rank)
@@ -175,7 +177,6 @@ def make_bb_vec_env(env_id: str, num_env: int, seed: int, render: bool,
     # -> Gym:    state, reward, done, info = env.step(action)
 
     vec_env = SubprocVecEnv if num_env > 1 else DummyVecEnv
-
     env_fns = [make_env(env_id=env_id, seed=seed, rank=i,
                         render=render, mp_config_override=mp_config_override,
                         **kwargs) for i in range(num_env)]

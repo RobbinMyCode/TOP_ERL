@@ -17,7 +17,7 @@ verbose_level: 2
 wandb:
   project: *exp_name
   group: *sub_exp_name
-  entity: TOP_ERL
+  entity: uiery
   log_interval: &log_interval 100
   log_model: true
   model_name: model
@@ -142,9 +142,21 @@ params:
       seed: auto
       task_specified_metrics: [ "is_success", "box_goal_pos_dist",
                                 "box_goal_rot_dist", "episode_energy" ]
+
+      #NEW added for replanning
+      env:
+        max_episode_steps: 125  #TOTAL steps for all agents
+
+      correction_steps: [20] #steps for correction agents (list as one may use multiple)
+
   replay_buffer:
     type: SeqReplayBuffer
     args:
       buffer_size: 5000  # Trajectories
       device: *device
       dtype: *dtype
+
+  useless_extra:
+    args:
+      environment_interactions: 200
+      best_animal: cat

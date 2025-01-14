@@ -36,6 +36,10 @@ class BlackBoxSampler(AbstractSampler):
         else:
             self.mp_args = dict()
 
+        #added for replanning --> (params -> sampler -> env)
+        self.env_kwargs = kwargs.get('env', dict())
+        #self.env_kwargs[]
+
         self.dtype, self.device = util.parse_dtype_device(dtype, device)
         self.seed = seed
 
@@ -93,7 +97,8 @@ class BlackBoxSampler(AbstractSampler):
 
         # Make envs
         envs = make_bb_vec_env(env_id=self.env_id, num_env=num_env,
-                               seed=seed, render=render, mp_args=self.mp_args)
+                               seed=seed, render=render, mp_args=self.mp_args,
+                               **self.env_kwargs)
 
         # Map env to cpu cores to avoid cpu conflicts in HPC
         util.assign_env_to_cpu(num_env, envs, self.cpu_cores)
